@@ -46,7 +46,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                 acuerdo: {
                     type: String,
                 },
-                observaciones_Docente: {
+                observaciones_Tutor: {
                     type: String,
                 },
                 observaciones_Estudiante: {

@@ -8,6 +8,6 @@ export interface tutoria{
     estado: tipo_estado;
     objetivo: string;
     acuerdo: string;
-    observaciones_Docente: string;
+    observaciones_Tutor: string;
     observaciones_Estudiante: string;
 }
