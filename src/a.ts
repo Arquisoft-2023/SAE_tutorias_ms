@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from 'express';
 import cors from 'cors';
 import {router} from './routes/Index';
-import db from './config/Mongo';
+import db from '.git /config/Mongo';
 
 const PORT = process.env.PORT || 3001;
 const URI = process.env.URI || 'http://localhost';
