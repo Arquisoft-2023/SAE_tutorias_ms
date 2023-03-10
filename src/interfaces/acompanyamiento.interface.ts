@@ -1,15 +1,15 @@
-import { observacion } from "./observacion.interface";
-import { tutoria } from "./tutoria.interface";
+import { observacion } from "./Observacion.interface";
+import { tutoria } from "./Tutoria.interface";
 
 export type tipo_Tutor = "Actual" | "Antiguo";
 
 export interface acompanyamiento {
-    _id_Acompanyamiento: string;
-    usuario_un_Estudiante: string;
-    usuario_un_Tutor: string;
-    es_Tutor: tipo_Tutor;
-    lista_Tutoria: tutoria[];
-    lista_Observacion: observacion[];
+    _id_acompanyamiento: string;
+    usuario_un_estudiante: string;
+    usuario_un_tutor: string;
+    es_tutor: tipo_Tutor;
+    lista_tutoria: tutoria[];
+    lista_observacion: observacion[];
 }
 
 export type acompanyamiento_tutoria = Omit<acompanyamiento, 'lista_Observacion'>;

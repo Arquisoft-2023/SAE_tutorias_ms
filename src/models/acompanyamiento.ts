@@ -1,29 +1,29 @@
 import { Schema, model } from "mongoose";
-import { acompanyamiento } from "../interfaces/acompanyamiento.interface";
+import { acompanyamiento } from "../interfaces/Acompanyamiento.interface";
 
 const AcompanyamientoSchema = new Schema<acompanyamiento>(
     {
-        _id_Acompanyamiento: Schema.Types.ObjectId,
-        usuario_un_Estudiante: {
+        _id_acompanyamiento: Schema.Types.ObjectId,
+        usuario_un_estudiante: {
             type: String,
             minlength: [ 3, 'El usuario no puede ser vacio' ],
             maxlength: [ 20, 'El usuario no puede tener más de 20 caracteres' ],
             required: true, 
         },
-        usuario_un_Tutor: {
+        usuario_un_tutor: {
             type: String,
             minlength: [ 3, 'El usuario no puede ser vacio' ],
             maxlength: [ 20, 'El usuario no puede tener más de 20 caracteres' ],
             required: true, 
         },
-        es_Tutor: {
+        es_tutor: {
             type: String,
             enum: ["Actual", "Antiguo"],
             required: true, 
         },
-        lista_Tutoria: {
+        lista_tutoria: {
             type: [{
-                _id_Tutoria: Schema.Types.ObjectId,
+                _id_tutoria: Schema.Types.ObjectId,
                 fecha: {
                     type: String,
                     length: [ 9, 'El usuario no puede ser vacio' ],
@@ -36,7 +36,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                 },
                 estado: {
                     type: String,
-                    enum: ["Solicitada", "Rechazada", "Programada", "Realizada"],
+                    enum: ["Solicitada", "Rechazada", "Programada", "No Realizada" ,"Realizada"],
                     required: true, 
                 },
                 objetivo: {
@@ -46,16 +46,16 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                 acuerdo: {
                     type: String,
                 },
-                observaciones_Tutor: {
+                observaciones_tutor: {
                     type: String,
                 },
-                observaciones_Estudiante: {
+                observaciones_estudiante: {
                     type: String,
                 }
             }],
             required: true, 
         },
-        lista_Observacion: {
+        lista_observacion: {
             type: [{
                 _id_Observacion: Schema.Types.ObjectId,
                 fecha: {

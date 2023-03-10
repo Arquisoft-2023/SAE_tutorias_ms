@@ -1,5 +1,5 @@
 export interface observacion{
-    _id_Observacion: string;
+    _id_observacion: string;
     fecha: string;
     descripcion: string;
 }
