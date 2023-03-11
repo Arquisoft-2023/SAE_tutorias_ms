@@ -13,7 +13,7 @@ const insertar_observacion = async (item: acompanyamiento_observacion) => {
     if (verificarItem === null) {
         return { data: "No es posible insertar la observacion"};
     }
-    const responseInsert = await acompanyamientoModel.updateOne({_id_acompanyamiento: verificarItem._id_acompanyamiento}, {
+    const responseInsert = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor: id_tutor, es_tutor: "Actual"}, {
         $push:{
             lista_observacion:
             {
