@@ -4,14 +4,14 @@ import { asignar_tutor, obtener_acompanyamiento, obtener_tutor, obtener_tutores,
 const router = Router();
 
 router.get('/', (_req: Request, res: Response) => {
-    res.send({data: 'We are ready'})
+    res.send({data: 'Acompanyamiento'})
 });
 
 router.post('/asignar', asignar_tutor);
 
 router.get('/all', obtener_acompanyamiento);
 router.get('/tutores', obtener_tutores);
-router.get('/estudiantes', obtener_estudiantes);
+router.get('/estudiantes/:id_un', obtener_estudiantes);
 router.get('/:id_un', obtener_tutor);
 
 

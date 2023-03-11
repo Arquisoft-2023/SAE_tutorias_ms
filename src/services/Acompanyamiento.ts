@@ -44,9 +44,8 @@ const obtener_lista_tutores = async () => {
       );
 };
 
-//TO DO
 const obtener_lista_estudiantes = async (id_un: string) => { 
-    const responseItem = await acompanyamientoModel.find({usuario_un_tutor: id_un});
+    const responseItem = await acompanyamientoModel.find({usuario_un_tutor: id_un.toLowerCase()}, 'usuario_un_estudiante');
     return responseItem;
 };
 
@@ -59,15 +58,16 @@ const actualizar_tutor_s = async (item: acompanyamiento) => {
     if(id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return {data: "Valores vacios no validos"};
 
     const responseItem = await acompanyamientoModel.findOne({ usuario_un_estudiante: id_estudiante , usuario_un_tutor : id_tutor}, 'es_tutor');
-    await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante , es_tutor : "Actual"}, {es_tutor: "Antiguo"});
     if(responseItem?.es_tutor === "Antiguo"){
         const responseupdate = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor : id_tutor}, {es_tutor: "Actual"});
+        await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante , es_tutor : "Actual"}, {es_tutor: "Antiguo"});
         return responseupdate.acknowledged;
     }
     else if(responseItem === null){
         item.usuario_un_estudiante = id_estudiante;
         item.usuario_un_tutor = id_tutor;
         const responseupdate = await acompanyamientoModel.create(item);
+        await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante , es_tutor : "Actual"}, {es_tutor: "Antiguo"});
         return responseupdate;
     }
     return {data: "Es el mismo tutor asignado"};
