@@ -12,7 +12,7 @@ export enum tipo_lugar{
 }
 
 export interface tutoria{
-    _id_tutoria: string;
+    id_tutoria: string;
     fecha: string;
     lugar: tipo_lugar;
     estado: tipo_estado;
@@ -22,5 +22,5 @@ export interface tutoria{
     observaciones_estudiante: string;
 }
 
-export type tutoria_sin_id = Omit<tutoria, '_id_tutoria'>;
-export type tutoria_reporte = Omit<tutoria, '_id_tutoria' | 'observaciones_estudiante' | 'observaciones_tutor'>;
+export type tutoria_sin_id = Omit<tutoria, 'id_tutoria'>;
+export type tutoria_reporte = Omit<tutoria, 'id_tutoria' | 'observaciones_estudiante' | 'observaciones_tutor'>;

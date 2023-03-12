@@ -35,7 +35,7 @@ const es_tipo_estado = (obj: any): boolean => {
 
 const comprobacion_tutorias = (object: any): tutoria =>{
     const nuevo_item: tutoria = {
-        _id_tutoria: object._id_tutoria || "",
+        id_tutoria: object._id_tutoria || "",
         fecha: comprobar_string(object.fecha),
         lugar: pasar_tipos_lugar(object.lugar),
         estado: pasar_tipo_estado(object.estado),

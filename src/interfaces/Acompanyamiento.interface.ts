@@ -12,5 +12,6 @@ export interface acompanyamiento {
     lista_observacion: observacion[];
 }
 
-export type acompanyamiento_tutoria = Omit<acompanyamiento, 'lista_observacion' | '_id_acompanyamiento'>;
+export type acompanyamiento_tutoria = Omit<acompanyamiento, 'lista_observacion'>;
+export type acompanyamiento_tutoria_sin_id = Omit<acompanyamiento, 'lista_observacion' | '_id_acompanyamiento'>;
 export type acompanyamiento_observacion = Omit<acompanyamiento, 'lista_tutoria' | '_id_acompanyamiento'>;

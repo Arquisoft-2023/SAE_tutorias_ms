@@ -23,7 +23,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
         },
         lista_tutoria: {
             type: [{
-                _id_tutoria: Schema.Types.ObjectId,
+                id_tutoria: Schema.Types.ObjectId,
                 fecha: {
                     type: String,
                     length: [ 9, 'El usuario no puede ser vacio' ],
@@ -57,7 +57,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
         },
         lista_observacion: {
             type: [{
-                _id_Observacion: Schema.Types.ObjectId,
+                id_Observacion: Schema.Types.ObjectId,
                 fecha: {
                     type: String,
                     length: [ 9, 'El usuario no puede ser vacio' ],

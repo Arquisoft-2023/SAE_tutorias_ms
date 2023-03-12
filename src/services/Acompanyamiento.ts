@@ -59,15 +59,16 @@ const actualizar_tutor_s = async (item: acompanyamiento) => {
 
     const responseItem = await acompanyamientoModel.findOne({ usuario_un_estudiante: id_estudiante , usuario_un_tutor : id_tutor}, 'es_tutor');
     if(responseItem?.es_tutor === "Antiguo"){
-        const responseupdate = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor : id_tutor}, {es_tutor: "Actual"});
         await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante , es_tutor : "Actual"}, {es_tutor: "Antiguo"});
+        const responseupdate = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor : id_tutor}, {es_tutor: "Actual"});
         return responseupdate.acknowledged;
     }
     else if(responseItem === null){
         item.usuario_un_estudiante = id_estudiante;
         item.usuario_un_tutor = id_tutor;
-        const responseupdate = await acompanyamientoModel.create(item);
+        item.es_tutor = "Actual";
         await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante , es_tutor : "Actual"}, {es_tutor: "Antiguo"});
+        const responseupdate = await acompanyamientoModel.create(item);
         return responseupdate;
     }
     return {data: "Es el mismo tutor asignado"};
