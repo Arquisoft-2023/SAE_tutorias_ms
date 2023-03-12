@@ -1,13 +1,26 @@
-export type tipo_estado = "Solicitada" | "Rechazada" | "Programada" | "No Realizada" | "Realizada";
-export type type_lugar = "Virtual"| "Presencial";
+export enum tipo_estado{
+    solicitada = "Solicitada",
+    rechazada = "Rechazada",
+    programada = "Programada",
+    no_realizada = "No Realizada",
+    realizada = "Realizada"
+}
+
+export enum tipo_lugar{
+    virtual = "Virtual",
+    presencial = "Presencial"
+}
 
 export interface tutoria{
     _id_tutoria: string;
     fecha: string;
-    lugar: type_lugar;
+    lugar: tipo_lugar;
     estado: tipo_estado;
     objetivo: string;
     acuerdo: string;
     observaciones_tutor: string;
     observaciones_estudiante: string;
 }
+
+export type tutoria_sin_id = Omit<tutoria, '_id_tutoria'>;
+export type tutoria_reporte = Omit<tutoria, '_id_tutoria' | 'observaciones_estudiante' | 'observaciones_tutor'>;
