@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+npm-debug.log
+
+# Proyect Compilado
+build
+
+# Migrations/*
+src/migrations/*
+
+#Docker
+Dockerfile
+.dockerignore

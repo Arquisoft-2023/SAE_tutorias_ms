@@ -5,9 +5,10 @@ import { insertar_observacion, obtener_observaciones , obtener_observaciones_rep
 const crear_obs = async ({ body }: Request, res: Response) => {
     try {
         const responseItem = await insertar_observacion(body);
-        res.send(responseItem);
+        if(responseItem?.es_error === "Yes") handleHttp(res, responseItem);
+        else res.send(responseItem);
     } catch (e) {
-        handleHttp(res, "ERROR_POST_ITEM",e);
+        handleHttp(res, {msg: "Error POST", status: 400},e);
     }
 };
 
@@ -16,7 +17,7 @@ const obtener_todo_obs = async (_req: Request, res: Response) => {
         const responseItem = await obtener_observaciones();
         res.send(responseItem);
     } catch (e) {
-        handleHttp(res, 'ERROR_GET_ITEM');
+        handleHttp(res, {msg: "Error GET", status: 400},e);
     }
 };
 
@@ -25,7 +26,7 @@ const obtener_todo_reporte = async (_req: Request, res: Response) => {
         const responseItem = await obtener_observaciones_reportes();
         res.send(responseItem);
     } catch (e) {
-        handleHttp(res, 'ERROR_GET_ITEM');
+        handleHttp(res, {msg: "Error GET", status: 400},e);
     }
 };
 

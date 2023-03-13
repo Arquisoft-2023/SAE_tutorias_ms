@@ -5,7 +5,7 @@ import {router} from './routes/Index';
 import db from './config/Mongo';
 
 const PORT = process.env.PORT || 3001;
-const URI = process.env.URI || 'http://localhost';
+const URI = process.env.URI || 'http://127.0.0.1';
 
 const app = express();
 

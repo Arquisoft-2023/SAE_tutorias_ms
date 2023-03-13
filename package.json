@@ -9,12 +9,12 @@
   "license": "ISC",
   "keywords": [],
   "repository": "?",
-  "main": "app.js",
+  "main": "App.js",
   "files": [],
   "scripts": {
-    "dev": "ts-node-dev ./src/app.ts",
+    "dev": "ts-node-dev ./src/App.ts",
     "lint": "ts-standard",
-    "start": "node ./build/app.js",
+    "start": "tsc && node ./build/App.js",
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

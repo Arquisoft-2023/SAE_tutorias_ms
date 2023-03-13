@@ -1,17 +1,17 @@
 import { acompanyamiento, acompanyamiento_observacion } from "../interfaces/Acompanyamiento.interface";
 import acompanyamientoModel from "../models/Acompanyamiento";
 
-const insertar_observacion = async (item: acompanyamiento_observacion) => {
+const insertar_observacion = async (item: acompanyamiento_observacion):Promise<any> => {
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
     const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
 
-    if (id_estudiante.localeCompare(id_tutor) === 0) return { data: "Usuarios iguales" };
-    if (id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return { data: "Valores vacios no validos" };
+    if (id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};
+    if (id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return {es_error: "Yes", msg: "Valores vacios no validos", status: 400};
 
     const verificarItem = await acompanyamientoModel.findOne({ usuario_un_estudiante: id_estudiante, usuario_un_tutor: id_tutor, es_tutor: "Actual" }, '_id_acompanyamiento');
 
     if (verificarItem === null) {
-        return { data: "No es posible insertar la observacion"};
+        return {es_error: "Yes", msg: "No es posible insertar la observacion", status: 400};
     }
     const responseInsert = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor: id_tutor, es_tutor: "Actual"}, {
         $push:{

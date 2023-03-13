@@ -1,10 +1,10 @@
 import { Response } from 'express';
 
-const handleHttp = (res: Response, error: string, errorRaw?: any) => {
+const handleHttp = (res: Response, error: any, errorRaw?: any) => {
     
     console.log(errorRaw);
-    res.status(500);
-    res.send({ error });
+    res.status(error.status);
+    res.send({ description: error.msg, status: error.status });
 };
 
 export { handleHttp };

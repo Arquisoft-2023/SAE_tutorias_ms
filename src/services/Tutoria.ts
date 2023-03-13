@@ -2,17 +2,17 @@ import { acompanyamiento, acompanyamiento_tutoria , acompanyamiento_tutoria_sin_
 import acompanyamientoModel from "../models/Acompanyamiento";
 import comprobacion_tutorias from "../utils/Utils.tutoria";
 
-const insertar_tutoria = async (item: acompanyamiento_tutoria) => {
+const insertar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> => {
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
     const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
 
-    if (id_estudiante.localeCompare(id_tutor) === 0) return { data: "Usuarios iguales" };
-    if (id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return { data: "Valores vacios no validos" };
+    if (id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};
+    if (id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return {es_error: "Yes", msg: "Valores vacios no validos", status: 400};
 
     const verificarItem = await acompanyamientoModel.findOne({ usuario_un_estudiante: id_estudiante, usuario_un_tutor: id_tutor, es_tutor: "Actual" });
 
     if (verificarItem === null) {
-        return { data: "No es posible insertar la tutoria"};
+        return {es_error: "Yes", msg: "No es posible insertar la tutoria", status: 400};
     }
 
     for(let doc of item.lista_tutoria){
@@ -54,7 +54,7 @@ const obtener_tutoria_reporte = async () => {
     return responseItem();
 };
 
-const actualizar_tutoria = async (item: acompanyamiento_tutoria) => {
+const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> => {
 
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
     const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
@@ -62,12 +62,12 @@ const actualizar_tutoria = async (item: acompanyamiento_tutoria) => {
     const id_tutoria = item.lista_tutoria[0].id_tutoria;  
     item.lista_tutoria[0] = comprobacion_tutorias(item.lista_tutoria[0]);
 
-    if(id_estudiante.localeCompare(id_tutor) === 0) return {data: "Usuarios iguales"};;
-    if(id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0 || id_tutoria.localeCompare("") == 0) return {data: "Valores vacios no validos"};
+    if(id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};
+    if(id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0 || id_tutoria.localeCompare("") == 0) return {es_error: "Yes", msg: "Valores vacios no validos", status: 400};
     
     const responseItemOld =  await acompanyamientoModel.findOne({"usuario_un_estudiante": id_estudiante, "usuario_un_tutor": id_tutor, "es_tutor": "Actual","lista_tutoria._id": id_tutoria}, {"lista_tutoria.$": true});
 
-    if(responseItemOld === null) return {data: "No existe datos"};
+    if(responseItemOld === null) return {es_error: "Yes", msg: "No existe datos", status: 404};
     
     let correcto = 1;
     switch(responseItemOld.lista_tutoria[0].estado){
@@ -95,7 +95,7 @@ const actualizar_tutoria = async (item: acompanyamiento_tutoria) => {
             break;
     }
 
-    if(correcto != 1) return {data: "Cambio de estado no valido"};
+    if(correcto != 1) return {es_error: "Yes", msg: "Cambio de estado no valido", status: 400};
     
     const responseItem = await acompanyamientoModel.updateOne({"usuario_un_estudiante": id_estudiante, "usuario_un_tutor": id_tutor, "es_tutor": "Actual","lista_tutoria._id": id_tutoria},
     { $set: 
