@@ -1,15 +1,18 @@
 FROM node:16-alpine
 
 #Creat app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# /usr/src/app
+RUN mkdir -p /sae_tutorias_ms
+WORKDIR /sae_tutorias_ms
 
 #Insall app dependencies
-COPY package*.json /usr/src/app/
+#/usr/src/app/
+COPY package*.json /sae_tutorias_ms/
 RUN npm install
 
 #Bundle app source
-COPY . /usr/src/app/
+#/usr/src/app/
+COPY . /sae_tutorias_ms/
 
 EXPOSE 3002
 CMD [ "npm", "start" ]
