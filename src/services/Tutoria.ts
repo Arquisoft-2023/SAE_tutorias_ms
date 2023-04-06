@@ -1,6 +1,7 @@
 import { acompanyamiento, acompanyamiento_tutoria , acompanyamiento_tutoria_sin_id} from "../interfaces/Acompanyamiento.interface";
+import { tutoria_sin_id } from "../interfaces/Tutoria.interface";
 import acompanyamientoModel from "../models/Acompanyamiento";
-import comprobacion_tutorias from "../utils/Utils.tutoria";
+import  {comprobacion_tutorias_sin_id, comprobacion_tutorias} from "../utils/Utils.tutoria";
 
 const insertar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> => {
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
@@ -15,15 +16,16 @@ const insertar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> => {
         return {es_error: "Yes", msg: "No es posible insertar la tutoria", status: 400};
     }
 
+    let nuevalista: tutoria_sin_id[] = [];
     for(let doc of item.lista_tutoria){
-        doc = comprobacion_tutorias(doc);
-    }
-     
+        nuevalista.push(comprobacion_tutorias_sin_id(doc));
+    }   
+    
     const responseInsert = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor: id_tutor, es_tutor: "Actual"}, {
         $push:{
             lista_tutoria:
             {
-                $each: item.lista_tutoria
+                $each: nuevalista
             }
         }
     });
@@ -59,7 +61,9 @@ const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> =>
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
     const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
     
-    const id_tutoria = item.lista_tutoria[0].id_tutoria;  
+    item.lista_tutoria[0] = comprobacion_tutorias(item.lista_tutoria[0])
+
+    const id_tutoria = item.lista_tutoria[0].id_tutoria  
     item.lista_tutoria[0] = comprobacion_tutorias(item.lista_tutoria[0]);
 
     if(id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};

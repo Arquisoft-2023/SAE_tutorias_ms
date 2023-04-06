@@ -26,7 +26,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                 id_tutoria: Schema.Types.ObjectId,
                 fecha: {
                     type: String,
-                    length: [ 9, 'El usuario no puede ser vacio' ],
+                    length: [ 9, 'La fecha no es valida' ],
                     required: true, 
                 },
                 lugar: {
@@ -53,6 +53,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                     type: String,
                 }
             }],
+            strict: true,
             required: true, 
         },
         lista_observacion: {
@@ -60,7 +61,7 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                 id_Observacion: Schema.Types.ObjectId,
                 fecha: {
                     type: String,
-                    length: [ 9, 'El usuario no puede ser vacio' ],
+                    length: [ 9, 'La fecha no es valida' ],
                     required: true, 
                 },
                 descripcion: {
@@ -68,10 +69,12 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
                     required: true, 
                 }
             }],
-            required: true, 
+            required: true,
+            strict: true, 
         },
-    },
+    },    
     {
+        strict: true,
         timestamps: true,
         versionKey: false
     }

@@ -1,5 +1,7 @@
 import { acompanyamiento, acompanyamiento_observacion } from "../interfaces/Acompanyamiento.interface";
 import acompanyamientoModel from "../models/Acompanyamiento";
+import  {comprobacion_observaciones_sin_id} from "../utils/Utils.tutoria";
+import { observacion_sin_id } from "../interfaces/Observacion.interface";
 
 const insertar_observacion = async (item: acompanyamiento_observacion):Promise<any> => {
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
@@ -13,11 +15,17 @@ const insertar_observacion = async (item: acompanyamiento_observacion):Promise<a
     if (verificarItem === null) {
         return {es_error: "Yes", msg: "No es posible insertar la observacion", status: 400};
     }
+
+    let nueva_lista: observacion_sin_id[] = [];
+    for(let doc of item.lista_observacion){
+        nueva_lista.push(comprobacion_observaciones_sin_id(doc));
+    }   
+
     const responseInsert = await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante, usuario_un_tutor: id_tutor, es_tutor: "Actual"}, {
         $push:{
             lista_observacion:
             {
-                $each: item.lista_observacion
+                $each: nueva_lista
             }
         }
     });

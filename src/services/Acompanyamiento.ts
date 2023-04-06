@@ -1,5 +1,6 @@
-import { acompanyamiento } from "../interfaces/Acompanyamiento.interface";
+import { acompanyamiento, tipo_Tutor } from "../interfaces/Acompanyamiento.interface";
 import acompanyamientoModel from "../models/Acompanyamiento";
+import  {comprobacion_acompanyamiento_sin_id} from "../utils/Utils.tutoria";
 
 const insertar_estudiante = async (item: acompanyamiento): Promise<any> =>{
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
@@ -13,7 +14,9 @@ const insertar_estudiante = async (item: acompanyamiento): Promise<any> =>{
     if(verificarItem == null){
         item.usuario_un_estudiante = id_estudiante;
         item.usuario_un_tutor = id_tutor;
-        const responseInsert = await acompanyamientoModel.create(item);
+        item.es_tutor = tipo_Tutor.Actual;
+        const newItem = comprobacion_acompanyamiento_sin_id(item);
+        const responseInsert = await acompanyamientoModel.create(newItem);
         return responseInsert;
     }
     return verificarItem;
@@ -45,7 +48,7 @@ const obtener_lista_tutores = async ():Promise<any> => {
 };
 
 const obtener_lista_estudiantes = async (id_un: string) => { 
-    const responseItem = await acompanyamientoModel.find({usuario_un_tutor: id_un.toLowerCase()}, 'usuario_un_estudiante');
+    const responseItem = await acompanyamientoModel.find({usuario_un_tutor: id_un.toLowerCase()}, {usuario_un_estudiante: 1,  es_tutor: 1});
     return responseItem;
 };
 
@@ -66,9 +69,10 @@ const actualizar_tutor_s = async (item: acompanyamiento):Promise<any> => {
     else if(responseItem === null){
         item.usuario_un_estudiante = id_estudiante;
         item.usuario_un_tutor = id_tutor;
-        item.es_tutor = "Actual";
+        item.es_tutor = tipo_Tutor.Actual;
+        const newItem = comprobacion_acompanyamiento_sin_id(item);
         await acompanyamientoModel.updateOne({usuario_un_estudiante: id_estudiante , es_tutor : "Actual"}, {es_tutor: "Antiguo"});
-        const responseupdate = await acompanyamientoModel.create(item);
+        const responseupdate = await acompanyamientoModel.create(newItem);
         return responseupdate;
     }
     return {es_error: "Yes", msg: "Es el mismo tutor asignado", status: 400};
