@@ -52,6 +52,22 @@ const obtener_lista_estudiantes = async (id_un: string) => {
     return responseItem;
 };
 
+const obtener_todo_uno = async (item: acompanyamiento):Promise<any> => {
+    const id_estudiante = item.usuario_un_estudiante.toLowerCase();
+    const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
+
+    if(id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};
+    if(id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return {es_error: "Yes", msg: "Valores vacios no validos", status: 400};
+
+    const response = await acompanyamientoModel.find({"usuario_un_estudiante": id_estudiante, "usuario_un_tutor": id_tutor}, {createdAt: 0, updatedAt: 0}); 
+    return response;
+};
+
+const obtener_todo_tutor = async (id_tutor: string) => {
+    const item = await acompanyamientoModel.find({"usuario_un_tutor": id_tutor}, {createdAt: 0, updatedAt: 0}); 
+    return item;
+};
+
 
 const actualizar_tutor_s = async (item: acompanyamiento):Promise<any> => {
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
@@ -78,4 +94,4 @@ const actualizar_tutor_s = async (item: acompanyamiento):Promise<any> => {
     return {es_error: "Yes", msg: "Es el mismo tutor asignado", status: 400};
 };
 
-export { insertar_estudiante , obtener_todo, obtener_tutor_s, obtener_lista_tutores, obtener_lista_estudiantes, actualizar_tutor_s};
+export { insertar_estudiante , obtener_todo, obtener_todo_uno, obtener_todo_tutor , obtener_tutor_s, obtener_lista_tutores, obtener_lista_estudiantes, actualizar_tutor_s};

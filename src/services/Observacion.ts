@@ -56,4 +56,22 @@ const obtener_observaciones_reportes = async () => {
     return responseItem();
 };
 
-export { insertar_observacion, obtener_observaciones , obtener_observaciones_reportes};
+const obtener_obs_estudiante = async (id_estudiante: string) => {
+    const item = await acompanyamientoModel.find({"usuario_un_estudiante": id_estudiante}, {createdAt: 0, updatedAt: 0, lista_tutoria : 0}); 
+    const obsv: acompanyamiento[] = item as acompanyamiento[];  
+    const responseItem = (): acompanyamiento_observacion[] =>{
+        return obsv.map(({usuario_un_estudiante, usuario_un_tutor, es_tutor, lista_observacion}) =>{
+            return {
+
+                usuario_un_estudiante,
+                usuario_un_tutor,
+                es_tutor,
+                lista_observacion
+            }
+
+        })
+    }
+    return responseItem();
+};
+
+export { insertar_observacion, obtener_observaciones, obtener_obs_estudiante , obtener_observaciones_reportes};

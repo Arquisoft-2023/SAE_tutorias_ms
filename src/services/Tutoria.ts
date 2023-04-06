@@ -56,6 +56,48 @@ const obtener_tutoria_reporte = async () => {
     return responseItem();
 };
 
+const obtener_tutorias_estudiante = async (id_estudiante: string) => {
+    const item = await acompanyamientoModel.find({"usuario_un_estudiante": id_estudiante}, {createdAt: 0, updatedAt: 0, lista_observacion : 0}); 
+    const obsv: acompanyamiento[] = item as acompanyamiento[];  
+    const responseItem = (): acompanyamiento_tutoria_sin_id[] =>{
+        return obsv.map(({usuario_un_estudiante, usuario_un_tutor, es_tutor, lista_tutoria}) =>{
+            return {
+
+                usuario_un_estudiante,
+                usuario_un_tutor,
+                es_tutor,
+                lista_tutoria
+            }
+
+        })
+    }
+    return responseItem();
+};
+
+const obtener_tutorias_uno = async (item: acompanyamiento_tutoria):Promise<any> => {
+    const id_estudiante = item.usuario_un_estudiante.toLowerCase();
+    const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
+
+    if(id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};
+    if(id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0) return {es_error: "Yes", msg: "Valores vacios no validos", status: 400};
+
+    const response = await acompanyamientoModel.find({"usuario_un_estudiante": id_estudiante, "usuario_un_tutor": id_tutor}, {createdAt: 0, updatedAt: 0, lista_observacion : 0}); 
+    const obsv: acompanyamiento[] = response as acompanyamiento[];  
+    const responseItem = (): acompanyamiento_tutoria_sin_id[] =>{
+        return obsv.map(({usuario_un_estudiante, usuario_un_tutor, es_tutor, lista_tutoria}) =>{
+            return {
+
+                usuario_un_estudiante,
+                usuario_un_tutor,
+                es_tutor,
+                lista_tutoria
+            }
+
+        })
+    }
+    return responseItem();
+};
+
 const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> => {
 
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
@@ -129,4 +171,4 @@ const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> =>
     return responseItem.acknowledged;
 };
 
-export { insertar_tutoria , obtener_tutorias, obtener_tutoria_reporte, actualizar_tutoria };
+export { insertar_tutoria , obtener_tutorias, obtener_tutoria_reporte, obtener_tutorias_estudiante , obtener_tutorias_uno , actualizar_tutoria };

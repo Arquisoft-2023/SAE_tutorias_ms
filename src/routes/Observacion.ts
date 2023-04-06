@@ -1,5 +1,5 @@
 import { Router,Request, Response } from "express";
-import { crear_obs, obtener_todo_obs, obtener_todo_reporte } from "../controllers/Observacion";
+import { crear_obs, obtener_todo_obs, obtener_todo_obs_estudiante ,obtener_todo_reporte } from "../controllers/Observacion";
 
 const router = Router();
 
@@ -11,6 +11,7 @@ router.post('/crear', crear_obs);
 
 router.get('/all', obtener_todo_obs);
 router.get('/reporte', obtener_todo_reporte);
+router.get('/lista/:id_un', obtener_todo_obs_estudiante);
 
 
 export { router };
