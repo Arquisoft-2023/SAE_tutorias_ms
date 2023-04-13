@@ -12,3 +12,11 @@ src/migrations/*
 Dockerfile
 .dockerignore
 docker-compose.yml
+
+#Git
+.gitignore
+.git
+
+#Readme
+README.md
+.env.example
