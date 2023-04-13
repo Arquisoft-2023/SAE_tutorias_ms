@@ -1,15 +1,15 @@
 FROM node:16-alpine
 
 #Creat app directory
-RUN mkdir -p sae/sae_tutorias_ms
-WORKDIR /sae/sae_tutorias_ms
+RUN mkdir -p sae/sae_tutorias/sae_tutorias_ms
+WORKDIR /sae/sae_tutorias/sae_tutorias_ms
 
-#Insall app dependencies
-COPY package*.json /sae/sae_tutorias_ms/
+#Install app dependencies
+COPY package*.json /sae/sae_tutorias/sae_tutorias_ms/
 RUN npm install
 
 #Bundle app source
-COPY . /sae/sae_tutorias_ms/
+COPY . /sae/sae_tutorias/sae_tutorias_ms/
 
 #Base de datos
 ENV DB_TYPE=mongodb
