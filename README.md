@@ -32,8 +32,9 @@ docker pull mongo
 2 Contruir y ejecutar el contenedor:
 
     docker-compose build --no-cache
-
-3 Detener y eliminar el contenedor:
+    
     docker-compose up
 
-docker-compose down
+3 Detener y eliminar el contenedor:
+
+    docker-compose down

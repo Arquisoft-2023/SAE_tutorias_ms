@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: sae_tutorias_db
+    restart: always
+    env_file:
+      - .env
+    ports: 
+      - "27019:27017"
+    volumes:
+      - volumen_data:/data/db
+    networks:
+      nodes-networks:
+        aliases:
+          - sae_tutorias_db
+  
+  sae_tutorias_ms:
+    build: .
+    image: sae_tutorias_ms
+    container_name: sae_tutorias_ms
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.6:3026:3026"
+    depends_on:
+      - mongodb
+    networks:
+      nodes-networks:
+        aliases:
+          - sae_tutorias_ms
+
+volumes:
+  volumen_data:
+
+networks:
+  nodes-networks:
+    external: true

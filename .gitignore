@@ -6,6 +6,3 @@ node_modules
 
 # Proyect Compilado
 build/
-
-#Docker compose
-docker-compose.yml
