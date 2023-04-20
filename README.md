@@ -22,3 +22,17 @@ docker build --no-cache -t sae_tutorias_ms .
 docker run -p 3002:3002 -e DB_TYPE=mongodb -e DB_HOST=X -e DB_PORT=27018 -e DB_NAME=sae_tutorias_db -e URI=127.0.0.1 -e PORT=3002 --name sae_tutorias_ms sae_tutorias_ms
 
 X: Direccion de ipv4 de la computadora local
+
+# Comandos de despliegue con docker-compose
+
+Si no se ha creado la red de docker para los microservicios, ejecutar el siguiente comando:
+
+docker network create nodes-networks
+
+Contruir y ejecutar el contenedor:
+
+docker-compose build --no-cache
+
+docker-compose up
+
+docker-compose down
