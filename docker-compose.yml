@@ -5,8 +5,10 @@ services:
     image: mongo
     container_name: sae_tutorias_db
     restart: always
-    env_file:
-      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    command: mongod --auth
     ports: 
       - "27019:27017"
     volumes:
@@ -15,7 +17,7 @@ services:
       nodes-networks:
         aliases:
           - sae_tutorias_db
-  
+
   sae_tutorias_ms:
     build: .
     image: sae_tutorias_ms
