@@ -99,15 +99,15 @@ const obtener_tutorias_uno = async (item: acompanyamiento_tutoria):Promise<any> 
 };
 
 const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> => {
-
+    
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
     const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
     
     item.lista_tutoria[0] = comprobacion_tutorias(item.lista_tutoria[0])
-
-    const id_tutoria = item.lista_tutoria[0].id_tutoria  
+    
+    const id_tutoria = item.lista_tutoria[0].id_tutoria;
     item.lista_tutoria[0] = comprobacion_tutorias(item.lista_tutoria[0]);
-
+    
     if(id_estudiante.localeCompare(id_tutor) === 0) return {es_error: "Yes", msg: "Valores iguales", status: 400};
     if(id_estudiante.localeCompare("") === 0 || id_tutor.localeCompare("") === 0 || id_tutoria.localeCompare("") == 0) return {es_error: "Yes", msg: "Valores vacios no validos", status: 400};
     
