@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "ts-node-dev ./src/App.ts",
     "lint": "ts-standard",
-    "queue": "tsc && node ./build/queue/Send_rpc_server.js",
+    "queue": "tsc && node ./build/queue/rpc_server.js",
     "start": "tsc && node ./build/App.js",
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
