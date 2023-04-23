@@ -6,6 +6,15 @@ Microservicio Tutorias
 # Autor
 Sebastián Hernández Cerón
 
+# Comando ejecutar script de cola de mensajes RabbitMQ RPC (send)
+    
+1 Instalar el servicio de RabbitMQ en la maquina local
+
+    choco install rabbitmq
+
+2 Ejecutar el siguiente comando en la carpeta raiz del proyecto:
+
+    npm run queque
 
 # Comandos de despliegue
 
