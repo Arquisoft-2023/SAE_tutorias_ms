@@ -10,6 +10,8 @@ src/migrations/*
 
 #Docker
 Dockerfile
+Dockerfile.mq
+Dockerfile.ms
 .dockerignore
 docker-compose.yml
 

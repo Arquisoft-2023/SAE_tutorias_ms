@@ -7,11 +7,11 @@ var amqp = require('amqplib/callback_api');
 const urlQueue = <string>process.env.URI_QUEUE;
 const idQueue = <string>process.env.ID_QUEUE;
 
-const PORT = process.env.PORT || 3001;
-const URI = process.env.URI || 'http://127.0.0.1';
+const PORT = <string>process.env.PORT_MS || 3001;
+const URI = <string>process.env.URI_MS || 'http://127.0.0.1';
 
 const entryPoint = "tutoria"
-const urlApi = `${URI}:${PORT}/${entryPoint}`
+const urlApi = `http://${URI}:${PORT}/${entryPoint}`
 
 amqp.connect(`amqp://${urlQueue}/`, function(error0: any, connection: { createChannel: (arg0: (error1: any, channel: any) => void) => void; }) {
   if (error0) {
@@ -32,7 +32,7 @@ amqp.connect(`amqp://${urlQueue}/`, function(error0: any, connection: { createCh
 
       console.log(" [.] Processing: ", request);
 
-      f(request)
+      myQuery(request)
         .then((response) => {
           console.log(" [.] Response: ", response.toString());
 
@@ -57,7 +57,7 @@ amqp.connect(`amqp://${urlQueue}/`, function(error0: any, connection: { createCh
   });
 });
 
-const f = async (item: any): Promise<any> =>{
+const myQuery = async (item: any): Promise<any> =>{
   try{
     item = JSON.parse(item);
     const query = item.query;
@@ -68,22 +68,22 @@ const f = async (item: any): Promise<any> =>{
     // let req: Request = {} as Request;
     if(query === "testQueue"){
       sleep(60);
-      response = {msg: data, status_code: 200};
+      response = {description: data, status_code: 200};
     }
     else if(query === "crear_tutoria"){
       console.log(" [.] Creando_tutoria");
       // req.body = data;
       // response = await crear_tutoria(req, res);
       response = await axios.post(`${urlApi}/crear`, data);
-      if (response.status === 200) response = {msg: response.data, status_code: 200};
+      if (response.status === 200) response = {description: response.data, status_code: 200};
     }
     else if(query === "actualizar_tutoria_c"){
       console.log(" [.] Actualizando_tutoria");
       response = await axios.put(`${urlApi}/actualizar`, data);
-      if (response.status === 200) response = {msg: response.data, status_code: 200};
+      if (response.status === 200) response = {description: response.data, status_code: 200};
     }
     else{
-      response = {msg: "Error! No se especifico la petición", status_code: 400};
+      response = {description: "Error! No se especifico la petición", status_code: 400};
     }
 
     const jsonMessage = JSON.stringify(response);
@@ -91,18 +91,31 @@ const f = async (item: any): Promise<any> =>{
     
     return bufferMessage;
   }catch(e){
-    let errorAxios: any = e;
-    let response = {description: errorAxios.response.data.description, status: errorAxios.response.data.status, status_code: 400};
+    try{
+      console.log(" [.] Error")
+      console.log(e)
+      let errorAxios: any = e;
+      let response = {description: errorAxios.response.data.description, status: errorAxios.response.data.status, status_code: 400};
+  
+      const jsonMessage = JSON.stringify(response);
+      const bufferMessage = Buffer.from(jsonMessage);
+      
+      return bufferMessage;
 
-    const jsonMessage = JSON.stringify(response);
-    const bufferMessage = Buffer.from(jsonMessage);
-    
-    return bufferMessage;
-    //throw new Error("Error");
+    }catch(e){
+      console.log(" [.] Error")
+      console.log(e);
+      let response = {description: "Error query", status: 400, status_code: 400};
+      const jsonMessage = JSON.stringify(response);
+      const bufferMessage = Buffer.from(jsonMessage);
+      
+      return bufferMessage;
+      // throw new Error("Error");
+    }
   }
 };
 
-const sleep = (segundos: number) => {
+const sleep = async (segundos: number): Promise<any> => {
   let limit: number  = segundos * 100000000;
   let cnt: number = 0;
   while(cnt < limit) cnt++;

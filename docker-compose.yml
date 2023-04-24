@@ -19,20 +19,38 @@ services:
           - sae_tutorias_db
 
   sae_tutorias_ms:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.ms
     image: sae_tutorias_ms
     container_name: sae_tutorias_ms
     restart: always
+    depends_on:
+      - mongodb
     env_file:
       - .env
     ports:
       - "127.0.0.6:3026:3026"
-    depends_on:
-      - mongodb
     networks:
       nodes-networks:
         aliases:
           - sae_tutorias_ms
+  
+  sae_mq_server:
+    build: 
+      context: .
+      dockerfile: Dockerfile.mq
+    image: sae_mq_server
+    container_name: sae_mq_server
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.10:5674:5672"
+    networks:
+      nodes-networks:
+        aliases:
+          - sae_mq_server
 
 volumes:
   volumen_data:

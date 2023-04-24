@@ -14,7 +14,7 @@ Sebastián Hernández Cerón
 
 2 Ejecutar el siguiente comando en la carpeta raiz del proyecto:
 
-    npm run queque
+    npm run queue-server
 
 # Comandos de despliegue
 
@@ -39,6 +39,10 @@ Sebastián Hernández Cerón
 1 Si no se ha creado la red de docker para los microservicios, ejecutar el siguiente comando:
 
     docker network create nodes-networks
+
+2 Para este paso es necesario detener el servicio de RabbitMQ si esta corriendo de forma local. Si no ha creado el contenedor de la cola de mensajes, ejecutar el siguiente comando:
+
+    docker run -d --name sae_mq -p 5672:5672 -p 15672:15672 --network=nodes-networks --network-alias=sae_mq rabbitmq:management-alpine
 
 2 Contruir y ejecutar el contenedor:
 

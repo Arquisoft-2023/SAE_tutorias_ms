@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "ts-node-dev ./src/App.ts",
     "lint": "ts-standard",
-    "queue": "tsc && node ./build/mq/Server_tutorias.js",
+    "queue-server": "tsc && node ./build/mq/Server_tutorias.js",
     "start": "tsc && node ./build/App.js",
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
