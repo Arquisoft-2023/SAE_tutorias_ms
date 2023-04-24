@@ -44,13 +44,13 @@ Sebastián Hernández Cerón
 
     docker run -d --name sae_mq -p 5672:5672 -p 15672:15672 --network=nodes-networks --network-alias=sae_mq rabbitmq:management-alpine
 
-2 Contruir y ejecutar el contenedor:
+3 Contruir y ejecutar el contenedor:
 
     docker-compose build --no-cache
     
     docker-compose up
 
-3 Detener y eliminar el contenedor:
+4 Detener y eliminar el contenedor:
 
     docker-compose down
 
