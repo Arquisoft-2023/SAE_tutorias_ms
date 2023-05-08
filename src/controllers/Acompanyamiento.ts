@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { handleHttp } from "../utils/Error.handle";
-import { insertar_estudiante, obtener_todo, obtener_todo_uno, obtener_todo_tutor, obtener_tutor_s, obtener_lista_tutores, obtener_lista_estudiantes, actualizar_tutor_s} from '../services/Acompanyamiento';
+import { insertar_estudiante, obtener_todo, obtener_todo_uno, obtener_todo_estudiante, obtener_todo_tutor, obtener_tutor_s, obtener_lista_tutores, obtener_lista_estudiantes, actualizar_tutor_s} from '../services/Acompanyamiento';
 
 const asignar_tutor = async ({ body }: Request, res: Response) => {
     try {
@@ -35,6 +35,17 @@ const obtener_acompanyamiento_tutor = async ({params}: Request, res: Response) =
     try {
         const { id_un } = params;
         const responseItem = await obtener_todo_tutor(id_un);
+        res.send(responseItem);
+    } catch (e) {
+        handleHttp(res, {msg: "Error GET", status: 400},e);
+    }
+};
+
+
+const obtener_acompanyamiento_estudiante = async ({params}: Request, res: Response) => {
+    try {
+        const { id_un } = params;
+        const responseItem = await obtener_todo_estudiante(id_un);
         res.send(responseItem);
     } catch (e) {
         handleHttp(res, {msg: "Error GET", status: 400},e);
@@ -83,4 +94,4 @@ const actualizar_tutor = async ({body}: Request, res: Response) => {
 };
 
 
-export { asignar_tutor, obtener_acompanyamiento, obtener_acompanyamiento_uno, obtener_acompanyamiento_tutor, obtener_tutor, obtener_tutores, obtener_estudiantes, actualizar_tutor};
+export { asignar_tutor, obtener_acompanyamiento, obtener_acompanyamiento_uno, obtener_acompanyamiento_estudiante, obtener_acompanyamiento_tutor, obtener_tutor, obtener_tutores, obtener_estudiantes, actualizar_tutor};

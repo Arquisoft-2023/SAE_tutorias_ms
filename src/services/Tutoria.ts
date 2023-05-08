@@ -127,6 +127,9 @@ const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> =>
                 item.lista_tutoria[0].acuerdo = "";
                 item.lista_tutoria[0].lugar = responseItemOld.lista_tutoria[0].lugar;
             }
+            else if (item.lista_tutoria[0].estado.localeCompare("Realizada") === 0){
+                break;
+            }
             else correcto = 0;
             break;
         case "Programada": 

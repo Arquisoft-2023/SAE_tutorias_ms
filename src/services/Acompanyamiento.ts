@@ -69,6 +69,12 @@ const obtener_todo_tutor = async (id_tutor: string) => {
 };
 
 
+const obtener_todo_estudiante = async (id_estudiante: string) => {
+    const item = await acompanyamientoModel.find({"usuario_un_estudiante": id_estudiante}, {createdAt: 0, updatedAt: 0}); 
+    return item;
+};
+
+
 const actualizar_tutor_s = async (item: acompanyamiento):Promise<any> => {
     const id_estudiante = item.usuario_un_estudiante.toLowerCase();
     const id_tutor = item.usuario_un_tutor.toLocaleLowerCase();
@@ -94,4 +100,4 @@ const actualizar_tutor_s = async (item: acompanyamiento):Promise<any> => {
     return {es_error: "Yes", msg: "Es el mismo tutor asignado", status: 400};
 };
 
-export { insertar_estudiante , obtener_todo, obtener_todo_uno, obtener_todo_tutor , obtener_tutor_s, obtener_lista_tutores, obtener_lista_estudiantes, actualizar_tutor_s};
+export { insertar_estudiante , obtener_todo, obtener_todo_uno, obtener_todo_estudiante, obtener_todo_tutor , obtener_tutor_s, obtener_lista_tutores, obtener_lista_estudiantes, actualizar_tutor_s};
