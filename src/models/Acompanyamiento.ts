@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { acompanyamiento } from "../interfaces/Acompanyamiento.interface";
+// import dayjs from 'dayjs';
 
 const AcompanyamientoSchema = new Schema<acompanyamiento>(
     {
@@ -25,8 +26,8 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
             type: [{
                 id_tutoria: Schema.Types.ObjectId,
                 fecha: {
-                    type: String,
-                    length: [ 9, 'La fecha no es valida' ],
+                    type: Date,
+                    // length: [ 9, 'La fecha no es valida' ],
                     required: true, 
                 },
                 lugar: {
@@ -60,8 +61,8 @@ const AcompanyamientoSchema = new Schema<acompanyamiento>(
             type: [{
                 id_Observacion: Schema.Types.ObjectId,
                 fecha: {
-                    type: String,
-                    length: [ 9, 'La fecha no es valida' ],
+                    type: Date,
+                    // length: [ 9, 'La fecha no es valida' ],
                     required: true, 
                 },
                 descripcion: {

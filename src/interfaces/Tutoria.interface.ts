@@ -13,7 +13,7 @@ export enum tipo_lugar{
 
 export interface tutoria{
     id_tutoria: string;
-    fecha: string;
+    fecha: Date;
     lugar: tipo_lugar;
     estado: tipo_estado;
     objetivo: string;

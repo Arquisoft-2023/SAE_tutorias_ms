@@ -47,9 +47,22 @@ const es_tipo_tutor = (obj: any): boolean => {
     return Object.values(tipo_Tutor).includes(obj);
 }
 
+const es_fecha = (obj: any): boolean => {
+    return obj instanceof Date;
+}
+
+const comprobar_fecha = (obj: any): Date =>{
+    comprobar_string(obj);
+    obj = new Date(obj);
+    if(!es_fecha(obj)){
+        throw new Error('Tipo de dato incorrecto')
+    }
+    return obj;
+}
+
 const comprobacion_tutorias_sin_id = (object: any): tutoria_sin_id =>{    
     const nuevo_item: tutoria_sin_id = {
-        fecha: comprobar_string(object.fecha),
+        fecha: comprobar_fecha(object.fecha),
         lugar: pasar_tipos_lugar(object.lugar),
         estado: pasar_tipo_estado(object.estado),
         objetivo: comprobar_string(object.objetivo),
@@ -63,7 +76,7 @@ const comprobacion_tutorias_sin_id = (object: any): tutoria_sin_id =>{
 const comprobacion_tutorias = (object: any): tutoria =>{    
     const nuevo_item: tutoria = {
         id_tutoria: object.id_tutoria || object._id,
-        fecha: comprobar_string(object.fecha),
+        fecha: comprobar_fecha(object.fecha),
         lugar: pasar_tipos_lugar(object.lugar),
         estado: pasar_tipo_estado(object.estado),
         objetivo: comprobar_string(object.objetivo),
@@ -76,7 +89,7 @@ const comprobacion_tutorias = (object: any): tutoria =>{
 
 const comprobacion_observaciones_sin_id = (object: any): observacion_sin_id =>{
     const nuevo_item: observacion_sin_id = {
-        fecha: comprobar_string(object.fecha),
+        fecha: comprobar_fecha(object.fecha),
         descripcion: comprobar_string(object.descripcion)
     }
     return nuevo_item;

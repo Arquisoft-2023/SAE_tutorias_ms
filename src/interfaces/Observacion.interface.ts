@@ -1,6 +1,6 @@
 export interface observacion{
     id_observacion: string;
-    fecha: string;
+    fecha: Date;
     descripcion: string;
 }
 
