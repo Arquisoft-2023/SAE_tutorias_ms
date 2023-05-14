@@ -5,10 +5,6 @@ services:
     image: mongo
     container_name: sae_tutorias_db
     restart: always
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    # command: mongod --auth
     ports: 
       - "27019:27017"
     volumes:
@@ -36,12 +32,12 @@ services:
         aliases:
           - sae_tutorias_ms
   
-  sae_serverTutorias_mq:
+  sae_servertutorias_mq:
     build: 
       context: .
       dockerfile: Dockerfile.mq
-    image: sae_serverTutorias_mq
-    container_name: sae_serverTutorias_mq
+    image: sae_servertutorias_mq
+    container_name: sae_servertutorias_mq
     restart: always
     env_file:
       - .env
@@ -50,7 +46,7 @@ services:
     networks:
       nodes-networks:
         aliases:
-          - sae_serverTutorias_mq
+          - sae_servertutorias_mq
 
 volumes:
   volumen_data:

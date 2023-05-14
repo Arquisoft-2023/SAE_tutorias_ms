@@ -1,5 +1,7 @@
 import 'dotenv/config';
 
+export const DB_HOST_ATLAS = <string>process.env.DB_HOST_ATLAS;
+export const DB_OTHER = <string>process.env.DB_OTHER;
 export const DB_TYPE = <string>process.env.DB_TYPE;
 export const DB_HOST = <string>process.env.DB_HOST;
 export const DB_PORT = <string>process.env.DB_PORT;
