@@ -146,6 +146,8 @@ const actualizar_tutoria = async (item: acompanyamiento_tutoria):Promise<any> =>
 
     if(correcto != 1) return {es_error: "Yes", msg: "Cambio de estado no valido", status: 400};
     
+    item.lista_tutoria[0] = comprobacion_tutorias(item.lista_tutoria[0]);
+    console.log
     const responseItem = await acompanyamientoModel.updateOne({"usuario_un_estudiante": id_estudiante, "usuario_un_tutor": id_tutor, "es_tutor": "Actual","lista_tutoria._id": id_tutoria},
     { $set: 
         {

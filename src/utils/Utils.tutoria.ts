@@ -5,7 +5,7 @@ import { acompanyamiento_sin_id, tipo_Tutor} from "../interfaces/Acompanyamiento
 const comprobar_string = (obj: any): string =>{
     if(!es_string(obj)){
         console.log(obj);
-        throw new Error('Tipo de dato incorrecto')
+        throw new Error('Tipo de dato incorrecto string')
     }
     return obj;
 }
@@ -52,10 +52,10 @@ const es_fecha = (obj: any): boolean => {
 }
 
 const comprobar_fecha = (obj: any): Date =>{
-    comprobar_string(obj);
+    // comprobar_string(obj);
     obj = new Date(obj);
     if(!es_fecha(obj)){
-        throw new Error('Tipo de dato incorrecto')
+        throw new Error('Tipo de dato incorrecto fecha')
     }
     return obj;
 }

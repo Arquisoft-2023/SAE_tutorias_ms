@@ -36,12 +36,12 @@ services:
         aliases:
           - sae_tutorias_ms
   
-  sae_mq_server:
+  sae_serverTutorias_mq:
     build: 
       context: .
       dockerfile: Dockerfile.mq
-    image: sae_mq_server
-    container_name: sae_mq_server
+    image: sae_serverTutorias_mq
+    container_name: sae_serverTutorias_mq
     restart: always
     env_file:
       - .env
@@ -50,7 +50,7 @@ services:
     networks:
       nodes-networks:
         aliases:
-          - sae_mq_server
+          - sae_serverTutorias_mq
 
 volumes:
   volumen_data:
