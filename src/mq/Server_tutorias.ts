@@ -7,12 +7,13 @@ var amqp = require('amqplib/callback_api');
 const urlQueue = <string>process.env.URI_QUEUE;
 const idQueue = <string>process.env.ID_QUEUE;
 
-// const PORT = <string>process.env.PORT_MS || 3001;
-// const URI = <string>process.env.URI_MS || 'http://127.0.0.1';
-const URI_MS_CLOUD = <string>process.env.URI_MS_CLOUD || 'http://127.0.0.1';
+const PORT = <string>process.env.PORT_MS || 3001;
+const URI = <string>process.env.URI_MS || 'http://127.0.0.1';
+// const URI_MS_CLOUD = <string>process.env.URI_MS_CLOUD || 'http://127.0.0.1';
 
 const entryPoint = "tutoria"
-const urlApi = `http://${URI_MS_CLOUD}/${entryPoint}`
+// const urlApi = `http://${URI_MS_CLOUD}/${entryPoint}`
+const urlApi = `http://${URI}:${PORT}/${entryPoint}`
 
 amqp.connect(`amqp://${urlQueue}/`, function(error0: any, connection: { createChannel: (arg0: (error1: any, channel: any) => void) => void; }) {
   if (error0) {
