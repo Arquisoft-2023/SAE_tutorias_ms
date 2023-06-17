@@ -6,6 +6,8 @@ import axios from 'axios';
 var amqp = require('amqplib/callback_api');
 const urlQueue = <string>process.env.URI_QUEUE;
 const idQueue = <string>process.env.ID_QUEUE;
+const RABBIT_USER = process.env.RABBIT_USER || 'guest'; // Nombre de usuario
+const RABBIT_PASSWORD = process.env.RABBIT_PASSWORD || 'guest'; // Contraseña
 
 const PORT = <string>process.env.PORT_MS || 3001;
 const URI = <string>process.env.URI_MS || 'http://127.0.0.1';
@@ -15,7 +17,7 @@ const entryPoint = "tutoria"
 // const urlApi = `http://${URI_MS_CLOUD}/${entryPoint}`
 const urlApi = `http://${URI}:${PORT}/${entryPoint}`
 
-amqp.connect(`amqp://${urlQueue}/`, function(error0: any, connection: { createChannel: (arg0: (error1: any, channel: any) => void) => void; }) {
+amqp.connect(`amqp://${RABBIT_USER}:${RABBIT_PASSWORD}@${urlQueue}/`, function(error0: any, connection: { createChannel: (arg0: (error1: any, channel: any) => void) => void; }) {
   if (error0) {
     throw error0;
   }
